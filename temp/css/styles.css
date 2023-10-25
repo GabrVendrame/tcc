@@ -1,0 +1,79 @@
+/* Style for the entire body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 50px;
+}
+
+/* Style for the login form container */
+form {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the headings */
+h2 {
+    color: #333;
+}
+
+/* Style for labels */
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Style for input fields */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Style for the login button */
+/* input[type="submit"],
+button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color: #555;
+}
+
+.button-container {
+    text-align: center;
+} */
+
+/* Style for the buttons */
+.button-container button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 100px;
+    /* Add margin to create space between buttons */
+}
+
+.button-container button:hover {
+    background-color: #555;
+}
