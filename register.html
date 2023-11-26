@@ -1,26 +1,33 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Page</title>
     <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="icon" href="assets/images/supimpa.png">
+    <link rel="shortcut icon" href="assets/images/supimpa.png">
+    <script src="js/register.js" defer></script>
 </head>
+
 <body>
 
     <h1>Register</h1>
 
-    <form action="index.html">
+    <form id="registerForm">
         <label for="newUsername">New Username:</label>
         <input type="text" id="newUsername" name="newUsername" required>
 
         <label for="newPassword">New Password:</label>
         <input type="password" id="newPassword" name="newPassword" required>
 
-        <button type="submit">Register</button>
+        <button type="button" onclick="register()">Register</button>
     </form>
 
     <p>Already have an account? <a href="index.html">Login here</a></p>
 
 </body>
+
 </html>

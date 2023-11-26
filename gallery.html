@@ -1,78 +1,27 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Gallery</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-</head>
-
-<body>
-
-    <h1>Photo Gallery</h1>
-
-   
-
-    <div id="gallery">
-        
-    </div>
-
-    <script>
-        // Your JavaScript for handling image uploads and displaying them goes here
-    </script>
-
-</body>
-
-</html> -->
-
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Gallery</title>
+    <title>Gallery</title>
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="assets/images/supimpa.png">
+    <link rel="shortcut icon" href="assets/images/supimpa.png">
+    <script src="js/uploadImages.js"></script>
 </head>
 
 <body>
 
-    <h1>Photo Gallery</h1>
+    <h1>Gallery</h1>
 
-    <input type="file" id="uploadInput" multiple accept="image/*">
-    <button onclick="uploadImages()">Upload Images</button>
+    <div id="image-container"></div>
 
-    <div id="gallery"></div>
-
-    <script>
-        function uploadImages() {
-            const input = document.getElementById('uploadInput');
-            const gallery = document.getElementById('gallery');
-
-            // Get selected files
-            const files = input.files;
-
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-
-                // Create a gallery item
-                const galleryItem = document.createElement('div');
-                galleryItem.className = 'gallery-item';
-
-                // Create an image element
-                const img = document.createElement('img');
-                img.src = URL.createObjectURL(file);
-                img.alt = 'Uploaded Image';
-
-                // Append image to the gallery item
-                galleryItem.appendChild(img);
-
-                // Append gallery item to the gallery
-                gallery.appendChild(galleryItem);
-            }
-        }
-    </script>
+    <form id="upload-form">
+        <input type="file" id="uploadInput" multiple accept="image/*">
+        <button onclick="uploadImages()">Upload Images</button>
+    </form>
 
 </body>
 
