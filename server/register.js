@@ -15,4 +15,4 @@ function register({username, password}) {
     }
 }
 
-module.exports = { register }
+module.exports = { register };
