@@ -1,0 +1,15 @@
+CREATE TABLE user IF NOT EXISTS(
+    id INT NOT NULL AUTO_INCREMENT,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE images IF NOT EXISTS(
+    id INT NOT NULL AUTO_INCREMENT,
+    name TEXT NOT NULL,
+    path TEXT NOT NULL,
+    user_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);

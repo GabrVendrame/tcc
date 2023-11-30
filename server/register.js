@@ -1,31 +1,18 @@
-app.post("/server/register", (req, res) => {
-  const { username, password } = req.body;
+const db = require('./database');
 
-  db.run(
-    "SELECT username FROM users WHERE username = ?",
-    [username],
-    async (error, res) => {
-      if (error) {
-        console.log(error);
-      }
+function register({username, password}) {
+    try{
+        const data = db.query('SELECT username FROM users WHERE username = ?', [username]);
+        console.log(data);
+        if (data && data.length > 0){
+            return { status: 409, body: "Username already taken" };
+        }
+        db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, password]);
+        return { status: 201, body: "Registration successful" };
+    } catch (error) {
+        console.error("Database error during registration", err);
+        return { status: 500, body: "Internal server error" };
+    }
+}
 
-      if (result.length > 0) {
-        return res.render("register", {
-          message: "This username is already in use",
-        });
-      }
-    }
-  );
-  db.run(
-    "INSERT INTO users (username, password) VALUES (?, ?)",
-    [username, password],
-    (err, res) => {
-      if (err) {
-        console.log(err);
-      } else {
-        alert("User registered");
-        // return res.render('register');
-      }
-    }
-  );
-});
+module.exports = { register }

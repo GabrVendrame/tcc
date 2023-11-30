@@ -22,11 +22,43 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
 
-        <button type="button">Login</button>
+        <button type="button" onclick="login()">Login</button>
     </form>
 
     <p>Don't have an account? <a href="register.html">Register here</a></p>
 
 </body>
+
+<script>
+    function submitForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Aqui você pode fazer o que quiser com os dados do formulário, como enviar para um servidor via AJAX
+            console.log("Username: " + username);
+            console.log("Password: " + password);
+
+            // Para enviar para um servidor, você pode usar a função fetch() ou outras técnicas, dependendo do seu caso.
+            // Exemplo usando fetch():
+            /*
+            axios(/server/login, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username: username, password: password }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+            */
+        }
+</script>
+
+<script src="/server/login.js"></script>
 
 </html>

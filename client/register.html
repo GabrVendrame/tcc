@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="icon" href="assets/images/supimpa.png">
     <link rel="shortcut icon" href="assets/images/supimpa.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
 </head>
 
 <body>
@@ -22,11 +23,20 @@
         <label for="newPassword">New Password:</label>
         <input type="password" id="newPassword" name="newPassword" required>
 
-        <button type="button" id="registerButton">Register</button>
+        <button type="button" id="registerButton" onclick="register()">Register</button>
     </form>
 
     <p>Already have an account? <a href="index.html">Login here</a></p>
 
 </body>
+
+<script>
+    function register() {
+        axios.post("http://localhost:3000/api/register", { username: 'test', password: 'test' }).then(
+            (res) => {
+                console.log(res);
+        });
+    }
+</script>
 
 </html>
