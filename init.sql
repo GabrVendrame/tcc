@@ -1,15 +1,13 @@
-CREATE TABLE user IF NOT EXISTS(
-    id INT NOT NULL AUTO_INCREMENT,
-    username TEXT NOT NULL,
-    password TEXT NOT NULL,
-    PRIMARY KEY (id)
+CREATE TABLE IF NOT EXISTS users(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT,
+    password TEXT
 );
 
-CREATE TABLE images IF NOT EXISTS(
-    id INT NOT NULL AUTO_INCREMENT,
-    name TEXT NOT NULL,
-    path TEXT NOT NULL,
-    user_id INT NOT NULL,
-    PRIMARY KEY (id),
+CREATE TABLE IF NOT EXISTS images(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    path TEXT,
+    user_id INTEGER,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
