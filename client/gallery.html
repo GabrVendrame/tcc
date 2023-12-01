@@ -6,20 +6,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://fonts.cdnfonts.com/css/optimus-princeps" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/output.css">
     <link rel="icon" href="assets/images/supimpa.png">
     <link rel="shortcut icon" href="assets/images/supimpa.png">
 </head>
 
 <body>
+    <div>
+        <h1>
+            Gallery
+        </h1>
 
-    <h1>Gallery</h1>
+        <button id="logoutButton" onclick="logout()">
+            Logout
+        </button>
+    </div>
 
-    <div id="image-container"></div>
+    <div id="image-container">
+
+    </div>
 
     <form id="upload-form">
         <input type="file" id="uploadInput" multiple accept="image/*">
-        <button onclick="uploadImages()">Upload Images</button>
+        <button onclick="uploadImages()">
+            Upload Images
+        </button>
     </form>
 
 </body>

@@ -3,41 +3,75 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registration Page</title>
-    <link rel="stylesheet" href="assets/css/index.css">
-    <link rel="icon" href="assets/images/supimpa.png">
-    <link rel="shortcut icon" href="assets/images/supimpa.png">
+    <link href="https://fonts.cdnfonts.com/css/optimus-princeps" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/output.css" />
+    <link rel="icon" href="assets/images/supimpa.png" />
+    <link rel="shortcut icon" href="assets/images/supimpa.png" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
 </head>
 
-<body>
+<body class="font-optimus bg-[#f4f4f4] text-center m-auto">
+    <div class="bg-black overflow-hidden shadow-[0px_0px_3px] shadow-white">
+        <a class="float-left block text-white text-center static top-auto px-[0.875rem] py-4 hover:bg-[#ddd] hover:text-black"
+            href="index.html">
+            Login
+        </a>
+        <a class="float-left block text-white text-center static top-auto px-[0.875rem] py-4 hover:bg-[#ddd] hover:text-black"
+            href="register.html">
+            Register
+        </a>
+    </div>
 
-    <h1>Register</h1>
+    <div class="flex flex-col items-center gap-4 p-4">
+        <h1 class="text-3xl font-semibold">Register</h1>
 
-    <form id="registerForm" action="/server/register.js" method="POST">
-        <label for="newUsername">New Username:</label>
-        <input type="text" id="newUsername" name="newUsername" required>
+        <form
+            class="h-fit bg-[#ffffff] border-[1px_solid_#ddd] p-5 max-w-[25rem] my-auto shadow-[0px_0px_10px_rgba(0,0,0,0.1)]"
+            id="registerForm" action="/server/register.js" method="POST">
+            <label class="block text-left mb[0.3125rem] font-bold" for="newUsername">
+                New Username:
+            </label>
+            <input class="w-[90%] p-[0.625rem] mb-5 border-[1px] border-[#363535a1] rounded-[0.3125rem]" type="text"
+                id="newUsername" name="newUsername" required />
 
-        <label for="newPassword">New Password:</label>
-        <input type="password" id="newPassword" name="newPassword" required>
+            <label class="block text-left mb[0.3125rem] font-bold" for="newPassword">
+                New Password:
+            </label>
+            <input class="w-[90%] p-[0.625rem] mb-5 border-[1px] border-[#363535a1] rounded-[0.3125rem]" type="password"
+                id="newPassword" name="newPassword" required />
 
-        <button type="button" id="registerButton" onclick="register()">Register</button>
-    </form>
+            <button
+                class="leading-none bg-[#333] text-[#fff] p-2 border-none rounded-[0.3125rem] cursor-pointer transition-all duration-[300ms] ease-in hover:bg-[#333]"
+                type="button" id="registerButton" onclick="register()">
+                Register
+            </button>
+        </form>
 
-    <p>Already have an account? <a href="index.html">Login here</a></p>
-
+        <p class="font-bold">
+            Already have an account?
+            <a class="font-thin underline" href="index.html"> Login here </a>
+        </p>
+    </div>
 </body>
 
 <script>
     function register() {
         const username = document.getElementById("newUsername").value;
         const password = document.getElementById("newPassword").value;
-        axios.post("http://localhost:3000/api/register", { username: username, password: password }).then(
-            (res) => {
+
+        axios
+            .post("http://localhost:3000/api/register", {
+                username: username,
+                password: password,
+            })
+            .then((res) => {
                 console.log(res);
-        });
+                alert("Successfully registered! You can log in now");
+                window.location.href = "index.html";
+            });
     }
 </script>
 

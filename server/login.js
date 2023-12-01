@@ -1,26 +1,20 @@
 const db = require('./database')
 
-function login() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    
-    const data = db.query("SELECT username, password FROM users WHERE username = ? AND password = ?", [username, password], function (err, row){
-        if (err){
-            console.error("Database error during login", err);
-            res.status(500).send("Internal server error");
-        } else if(row) {
-            res.status(200).send("Login successful");
+function loginUser({ username, password }) {
+    try {
+        const data = db.query(
+            "SELECT username, password FROM users WHERE username = ? and password = ?", 
+            [username, password]);
+        console.log(data);
+        if (data && data.length > 0) {
+            return { status: 200, body: "Log in successful" };
         } else{
-            res.status.send("Login Failed");
+            return { status: 409, body: "Username or password wrong"};
         }
-        return {data}; // não faço ideia se ta certo
-    });
-
-    if (data.username === username && data.password === password){
-        console.log("Login successful");
-    } else{
-        consoler.error("User not found");
+    } catch (err) {
+        console.error("Database error during login", err);
+        return { status: 500, body: "Internal server error" }; 
     }
 }
 
-module.exports = { login }
+module.exports = { loginUser };

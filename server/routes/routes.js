@@ -12,7 +12,8 @@ router.get("/health", function (req, res, next) {
 router.post("/login", function (req, res, next) {
     try {
         const body = req.body;
-        res.json(login.login());
+        const { resBody, status } = login.loginUser(body);
+        res.status(status).json(resBody);
     } catch (err) {
         console.error("Error on log in", err.message);
         next(err);
@@ -23,8 +24,7 @@ router.post("/login", function (req, res, next) {
 router.post("/register", function (req, res, next) {
     try {
         const body = req.body;
-        console.log(body);
-        const { resBody, status } = register.register(body);
+        const { resBody, status } = register.registerUser(body);
         res.status(status).json(resBody);
     } catch (err) {
         console.error(err.message);

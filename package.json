@@ -4,6 +4,7 @@
   "description": "Repository for final paper in Computer Science major",
   "main": "server.js",
   "scripts": {
+    "tailwind": "npx tailwindcss -i ./client/assets/css/input.css -o ./client/assets/css/output.css --watch",
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,5 +25,8 @@
     "hbs": "^4.2.0",
     "nodemon": "^3.0.1",
     "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
   }
 }
