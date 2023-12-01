@@ -35,7 +35,7 @@ router.post("/register", function (req, res, next) {
 router.post("/upload", function (req, res, next) {
     try {
         const body = req.body;
-        //funcao upload
+        const { resBody, status } = upload.uploadImage(body);
         res.json(200);
     } catch (err) {
         console.error("Error in upload", err.message);

@@ -1,13 +1,13 @@
 CREATE TABLE IF NOT EXISTS users(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    password TEXT
+    username TEXT NOT NULL,
+    password TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS images(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    path TEXT,
+    name TEXT NOT NULL,
+    file BLOB,
     user_id INTEGER,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
