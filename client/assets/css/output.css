@@ -579,10 +579,6 @@ video {
   display: flex;
 }
 
-.hidden {
-  display: none;
-}
-
 .h-fit {
   height: -moz-fit-content;
   height: fit-content;

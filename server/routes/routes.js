@@ -4,10 +4,6 @@ const login = require("../login");
 const register = require("../register");
 const upload = require("../upload");
 
-router.get("/health", function (req, res, next) {
-  res.json("penis");
-});
-
 /* GET quotes listing. */
 router.post("/login", function (req, res, next) {
     try {

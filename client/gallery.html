@@ -29,8 +29,7 @@
         <form
             class="inline-block text-left m-5"
             id="upload-form">
-            <label for="file"></label>
-            <input id="file" type="file" name="file" enctype="multipart/form-data">
+            <input id="file" type="file" name="file" enctype="multipart/form-data" method="post">
             <button
                 class="leading-none bg-[#333] text-[#fff] p-2 border-none rounded-[0.3125rem] cursor-pointer transition-all duration-[300ms] ease-in hover:bg-[#333]"
                 onclick="uploadImages()">
@@ -44,5 +43,13 @@
     </div>
 
 </body>
+
+<script>
+    function uploadImages(){
+        const image = document.querySelector("file");
+
+        
+    }
+</script>
 
 </html>
