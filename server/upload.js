@@ -6,6 +6,8 @@ function uploadImage({ name, data }){
     // convert file into binary?
 
     // save file into database
+
+    return { status: 501, body: "" }
 }
 
 module.exports = { uploadImage };

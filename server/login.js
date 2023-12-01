@@ -9,7 +9,7 @@ function loginUser({ username, password }) {
         if (data && data.length > 0) {
             return { status: 200, body: "Log in successful" };
         } else{
-            return { status: 409, body: "Username or password wrong"};
+            return { status: 400, body: "Username or password wrong"};
         }
     } catch (err) {
         console.error("Database error during login", err);
