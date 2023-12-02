@@ -6,8 +6,9 @@ CREATE TABLE IF NOT EXISTS users(
 
 CREATE TABLE IF NOT EXISTS images(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    file BLOB,
     user_id INTEGER,
+    mimetype TEXT NOT NULL,
+    name TEXT NOT NULL,
+    size INTEGER,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );

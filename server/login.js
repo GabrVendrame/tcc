@@ -5,7 +5,6 @@ function loginUser({ username, password }) {
         const data = db.query(
             "SELECT username, password FROM users WHERE username = ? and password = ?", 
             [username, password]);
-        console.log(data);
         if (data && data.length > 0) {
             return { status: 200, body: "Log in successful" };
         } else{

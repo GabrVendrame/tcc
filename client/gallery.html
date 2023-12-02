@@ -25,12 +25,15 @@
             Gallery
         </h1>
 
-        <input id="img" type="file" name="img">
-        <button
-            class="leading-none bg-[#333] text-[#fff] p-2 border-none rounded-[0.3125rem] cursor-pointer transition-all duration-[300ms] ease-in hover:bg-[#333]"
-            onclick="uploadFile()">
-            Upload
-        </button>
+        <form enctype="multipart/form-data" action="/api/upload" method="post">
+            <input type="file" name="file">
+            <button
+                class="leading-none bg-[#333] text-[#fff] p-auto border-none rounded-[0.3125rem] cursor-pointer transition-all duration-[300ms] ease-in hover:bg-[#333]"
+                onclick="">
+                Upload
+            </button>
+        </form>
+
 
         <div class="flex flex-wrap justify-center">
 
@@ -40,16 +43,24 @@
 </body>
 
 <script>
-    async function uploadFile() {
-        let formData = new FormData();
-        formData.append("img", img.files[0]);
-        console.log(img.files);
-        const res = await fetch('http://localhost:3000/api/upload', {
-            method: "POST",
-            body: formData
-        });
-        console.log(res);
-    }
+    // function uploadFile(){
+    //     const image = document.querySelector("file");
+    //     console.log(image);
+    //     axios.post("http://localhost:3000/api/upload", image).then(
+    //         (res) => {
+    //             console.log(res);
+    //         });
+    // }
+    // async function uploadFile() {
+    //     let formData = new FormData();
+    //     formData.append("img", img.files[0]);
+    //     console.log(img.files);
+    //     const res = await fetch('http://localhost:3000/api/upload', {
+    //         method: "POST",
+    //         body: formData
+    //     });
+    //     console.log(res);
+    // }
 </script>
 
 </html>
