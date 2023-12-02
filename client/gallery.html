@@ -15,8 +15,7 @@
 <body class="font-optimus bg-[#f4f4f4] text-center m-auto">
     <div class="bg-black overflow-hidden shadow-[0px_0px_3px] shadow-white">
         <a class="float-right block text-white text-center static top-auto px-[0.875rem] py-4 hover:bg-[#ddd] hover:text-black"
-            onclick="logoutUser"
-            href="index.html">
+            onclick="logoutUser" href="index.html">
             Logout
         </a>
     </div>
@@ -26,29 +25,30 @@
             Gallery
         </h1>
 
-        <form
-            class="inline-block text-left m-5"
-            id="upload-form">
-            <input id="file" type="file" name="file" enctype="multipart/form-data" method="post">
-            <button
-                class="leading-none bg-[#333] text-[#fff] p-2 border-none rounded-[0.3125rem] cursor-pointer transition-all duration-[300ms] ease-in hover:bg-[#333]"
-                onclick="uploadImages()">
-                Upload
-            </button>
-        </form>
+        <input id="img" type="file" name="img">
+        <button
+            class="leading-none bg-[#333] text-[#fff] p-2 border-none rounded-[0.3125rem] cursor-pointer transition-all duration-[300ms] ease-in hover:bg-[#333]"
+            onclick="uploadFile()">
+            Upload
+        </button>
 
         <div class="flex flex-wrap justify-center">
-            
+
         </div>
     </div>
 
 </body>
 
 <script>
-    function uploadImages(){
-        const image = document.querySelector("file");
-
-        
+    async function uploadFile() {
+        let formData = new FormData();
+        formData.append("img", img.files[0]);
+        console.log(img.files);
+        const res = await fetch('http://localhost:3000/api/upload', {
+            method: "POST",
+            body: formData
+        });
+        console.log(res);
     }
 </script>
 
