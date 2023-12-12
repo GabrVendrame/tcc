@@ -1,14 +1,17 @@
-const db = require('./database');
-const fs = require('fs');
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('database.db');
 
-function insertImage(){
-    // get the file name
+const insertFile = async (name, file, user_id, mimetype, size) => {
+    try {
 
-    // convert file into binary?
+        db.run('INSERT INTO images (name, file, user_id, mimetype, size) VALUES (?, ?, ?, ?, ?)', [name, file, user_id, mimetype, size]);
+        return { status: 201, body: "Upload successful" };
+    } catch (err) {
+        console.error("Database error during upload", err);
+        return { status: 500, body: "Internal server error" };
+    }
 
-    // save file into database
-
-    return { status: 200, body: "" }
 }
 
-module.exports = { uploadImage };
+module.exports = { insertFile };
+
