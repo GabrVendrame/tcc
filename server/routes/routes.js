@@ -20,7 +20,6 @@ const upload = multer({storage: storage});
 router.post("/login", function (req, res, next) {
     try {
         const body = req.body;
-        console.log('login' + body);
         const { resBody, status } = login.loginUser(body);
         res.status(status).json(resBody);
     } catch (err) {
@@ -32,7 +31,6 @@ router.post("/login", function (req, res, next) {
 router.post("/register", function (req, res, next) {
     try {
         const body = req.body;
-        console.log('register' + body);
         const { resBody, status } = register.registerUser(body);
         res.status(status).json(resBody);
     } catch (err) {
