@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 const db = new sqlite.Database('database.db', sqlite.OPEN_READWRITE, (err) => {
-    if (err){
+    if (err) {
         return console.error('Database not initialize');
     }
     console.log('Database connected');
@@ -21,7 +21,7 @@ const clientDir = path.join(__dirname, './client');
 
 app.use(express.static(clientDir));
 
-app.use('/api', router);
+app.use(router);
 
 app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
