@@ -1,28 +1,15 @@
-const express = require("express");
+const express = require('express');
 const multer = require('multer');
 const router = express.Router();
-const login = require("../login");
-const register = require("../register");
-const upload = require("../upload");
-const getFiles = require("../getFiles");
+const user = require('../user');
+const files = require('../files');
 const multerStorage = multer.memoryStorage();
 const multerUpload = multer({ storage: multerStorage });
 
-router.post("/login", function (req, res, next) {
+router.post("/login", async function (req, res, next) {
     try {
         const body = req.body;
-        const { resBody, status } = login.loginUser(body);
-        res.status(status).json(resBody);
-    } catch (err) {
-        console.error("Error on log in", err.message);
-        next(err);
-    }
-});
-
-router.post("/register", function (req, res, next) {
-    try {
-        const body = req.body;
-        const { resBody, status } = register.registerUser(body);
+        const { status, resBody } = await user.login(body);
         res.status(status).json(resBody);
     } catch (err) {
         console.error(err.message);
@@ -30,11 +17,20 @@ router.post("/register", function (req, res, next) {
     }
 });
 
-router.post("/upload", multerUpload.single('file'), async function (req, res, next) {
+router.post("/register", async function (req, res, next) {
     try {
+        const body = req.body;
+        const { status, resBody } = await user.register(body);
+        res.status(status).json(resBody);
+    } catch (err) {
+        console.error(err.message);
+        next(err);
+    }
+});
 
+router.post("/upload", multerUpload.single("file"), async function (req, res, next) {
+    try {
         const { originalname, buffer, mimetype, size } = req.file;
-
         const newFile = {
             name: originalname,
             file: buffer,
@@ -43,7 +39,7 @@ router.post("/upload", multerUpload.single('file'), async function (req, res, ne
             size: size
         };
         console.log(newFile);
-        await upload.insertFile(newFile.name, newFile.file, newFile.user_id, newFile.mimetype, newFile.size);
+        await files.insertFile(newFile.name, newFile.file, newFile.user_id, newFile.mimetype, newFile.size);
         res.status(201).json("Upload successful");
 
     } catch (err) {
@@ -57,23 +53,21 @@ router.get("/files/:id", async function (req, res, next) {
     try {
         const id = req.params.id;
         console.log(id);
-
-        const result = await getFiles.getFiles(id);
-
+        const result = await files.getFiles(id);
         if (result) {
             const { status, body } = result;
 
             // Configurar cabeçalhos da resposta
-            res.setHeader('Content-Type', body.mimetype);
+            res.setHeader("Content-Type", body.mimetype);
 
             // Enviar o conteúdo do arquivo como resposta
             res.send(body.file);
         }
 
-        res.status(404).send('Arquivo não encontrado');
+        res.status(404).send("File not found");
 
     } catch (err) {
-        console.error("Error in get images", err.message);
+        console.error("Error getting images", err.message);
         next(err);
     }
 });
