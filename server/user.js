@@ -10,8 +10,10 @@ function login({ username, password }) {
                 console.log(err);
                 reject({ status: 500, body: "Internal Server Error"})
             }
-            if (row.username == username && row.password == password) {
-                resolve ({ status: 201, body: "Log in successful" });
+            if (row === undefined){
+                resolve({ status: 404, body: "Missing username or password"})
+            } else if (row.username == username && row.password == password) {
+                resolve ({ status: 200, body: "Log in successful" });
             } else {
                 resolve ({ status: 400, body: "Username or password wrong" });
             }
@@ -28,13 +30,11 @@ function register({ username, password }) {
                 reject ({ status: 500, body: "Internal server error" });
             }
             if (row === undefined) {
-                console.log("nao existe")
                 const insert = `INSERT INTO users (username, password) 
                 VALUES ("${username}", "${password}")`
                 db.run(insert);
                 resolve ({ status: 201, resBody: "Registration successful" });
             } else{
-                console.log('existe');
                 resolve ({ status: 409, body: "Username already taken" });
             }
         })});

@@ -12,7 +12,7 @@ const clientDir = path.join(__dirname, "./client");
 
 app.use(express.static(clientDir));
 
-app.use("/api", router);
+app.use("/", router);
 
 app.listen(port, () => {
     console.log("Server started on http://localhost:" + port);

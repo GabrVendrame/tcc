@@ -25,11 +25,11 @@
             Gallery
         </h1>
 
-        <form enctype="multipart/form-data" action="/api/upload" method="post">
+        <form enctype="multipart/form-data" action="/upload" method="post">
             <input type="file" name="file">
             <button
                 class="leading-none bg-[#333] text-[#fff] p-auto border-none rounded-[0.3125rem] cursor-pointer transition-all duration-[300ms] ease-in hover:bg-[#333]"
-                onclick="">
+                onclick="gallery.html">
                 Upload
             </button>
         </form>
@@ -41,5 +41,11 @@
     </div>
 
 </body>
+
+<script>
+    function reloadWindow(){
+        window.location.href = "gallery.html"
+    }
+</script>
 
 </html>

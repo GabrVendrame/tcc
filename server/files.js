@@ -1,10 +1,10 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('database.db', sqlite3.OPEN_READWRITE);
 
-const insertFile = async (name, file, user_id, mimetype, size) => {
+const insertFile = async (name, user_id, buffer, mimetype, size) => {
     try {
         const query = `INSERT INTO images (name, file, user_id, mimetype, size) 
-        VALUES ("${name}", "${file}", "${user_id}", "${mimetype}", "${size}")`;
+        VALUES ("${name}", "${buffer}", "${user_id}", "${mimetype}", "${size}")`;
         db.run(query);
         return { status: 201, body: "Upload successful" };
     } catch (err) {

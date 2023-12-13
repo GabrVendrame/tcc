@@ -63,7 +63,7 @@
         const password = document.getElementById("newPassword").value;
 
         axios
-            .post("http://localhost:3000/api/register", {
+            .post("http://localhost:3000/register", {
                 username: username,
                 password: password,
             })

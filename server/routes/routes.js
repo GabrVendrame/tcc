@@ -31,6 +31,7 @@ router.post("/register", async function (req, res, next) {
 router.post("/upload", multerUpload.single("file"), async function (req, res, next) {
     try {
         const { originalname, buffer, mimetype, size } = req.file;
+        // const image = req.file;
         const newFile = {
             name: originalname,
             file: buffer,
@@ -39,8 +40,8 @@ router.post("/upload", multerUpload.single("file"), async function (req, res, ne
             size: size
         };
         console.log(newFile);
-        await files.insertFile(newFile.name, newFile.file, newFile.user_id, newFile.mimetype, newFile.size);
-        res.status(201).json("Upload successful");
+        const { status, resBody } = await files.insertFile(newFile.name, newFile.file, newFile.user_id, newFile.mimetype, newFile.size);
+        res.status(status).json(resBody);
 
     } catch (err) {
         console.error("Error in upload", err.message);
