@@ -1,9 +1,10 @@
-const db = require('./database');
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('database.db');
 
-function registerUser({username, password}) {
-    try{
+function registerUser({ username, password }) {
+    try {
         const data = db.query('SELECT username FROM users WHERE username = ?', [username]);
-        if (data && data.length > 0){
+        if (data && data.length > 0) {
             return { status: 409, body: "Username already taken" };
         }
         db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, password]);
