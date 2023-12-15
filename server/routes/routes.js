@@ -5,10 +5,22 @@ const user = require('../user');
 const files = require('../files');
 const multerStorage = multer.memoryStorage();
 const multerUpload = multer({ storage: multerStorage });
+const sqlite = require('sqlite3');
+const db = new sqlite.Database('database.db', sqlite.OPEN_READONLY);
+
+const user_id = []
 
 router.post("/login", async function (req, res, next) {
     try {
         const body = req.body;
+        db.get("SELECT id FROM users WHERE username = ?", [body.username], (err, row) => {
+            if (err){
+                throw err;
+            }
+            if(row){
+                user_id.push(row.id);
+            }
+        });
         const { status, resBody } = await user.login(body);
         res.status(status).json(resBody);
     } catch (err) {
@@ -35,12 +47,15 @@ router.post("/upload", multerUpload.single("file"), async function (req, res, ne
         const newFile = {
             name: originalname,
             file: buffer,
-            user_id: "1",
+            user_id: user_id[0],
             mimetype: mimetype,
             size: size
         };
+        user_id.pop();
         console.log(newFile);
-        const { status, resBody } = await files.insertFile(newFile.name, newFile.file, newFile.user_id, newFile.mimetype, newFile.size);
+        const { status, resBody } = await files.insertFile(
+            newFile.name, newFile.file, newFile.user_id, newFile.mimetype, newFile.size
+        );
         res.status(status).json(resBody);
 
     } catch (err) {
