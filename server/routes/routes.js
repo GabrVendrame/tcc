@@ -43,7 +43,7 @@ router.post("/upload", multerUpload.single("file"), async function (req, res, ne
         res.status(status).json(body);
 
     } catch (err) {
-        console.error("Error in upload", err.message);
+        console.error("Error in upload", err);
         next(err);
     }
 });
