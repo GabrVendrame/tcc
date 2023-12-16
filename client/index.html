@@ -69,6 +69,7 @@
         axios.post("http://localhost:3000/login", { username: username, password: password }).then(
             (res) => {
                 console.log(res);
+                localStorage.setItem("user_id", res.data.user_id);
                 window.location.href = "gallery.html";
             });
     }

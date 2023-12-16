@@ -5,35 +5,21 @@ const user = require('../user');
 const files = require('../files');
 const multerStorage = multer.memoryStorage();
 const multerUpload = multer({ storage: multerStorage });
-const sqlite = require('sqlite3');
-const db = new sqlite.Database('database.db', sqlite.OPEN_READONLY);
-
-const user_id = []
 
 router.post("/login", async function (req, res, next) {
     try {
-        const body = req.body;
-        db.get("SELECT id FROM users WHERE username = ?", [body.username], (err, row) => {
-            if (err){
-                throw err;
-            }
-            if(row){
-                user_id.push(row.id);
-            }
-        });
-        const { status, resBody } = await user.login(body);
-        res.status(status).json(resBody);
+        const { status, body } = await user.login(req.body);
+        res.status(status).json({user_id: body});
     } catch (err) {
-        console.error(err.message);
+        console.error("error", err.message);
         next(err);
     }
 });
 
 router.post("/register", async function (req, res, next) {
     try {
-        const body = req.body;
-        const { status, resBody } = await user.register(body);
-        res.status(status).json(resBody);
+        const { status, body } = await user.register(req.body);
+        res.status(status).json(body);
     } catch (err) {
         console.error(err.message);
         next(err);
@@ -43,20 +29,18 @@ router.post("/register", async function (req, res, next) {
 router.post("/upload", multerUpload.single("file"), async function (req, res, next) {
     try {
         const { originalname, buffer, mimetype, size } = req.file;
-        // const image = req.file;
         const newFile = {
             name: originalname,
             file: buffer,
-            user_id: user_id[0],
+            user_id: req.body.user_id,
             mimetype: mimetype,
             size: size
         };
-        user_id.pop();
         console.log(newFile);
-        const { status, resBody } = await files.insertFile(
+        const { status, body } = await files.insertFile(
             newFile.name, newFile.file, newFile.user_id, newFile.mimetype, newFile.size
         );
-        res.status(status).json(resBody);
+        res.status(status).json(body);
 
     } catch (err) {
         console.error("Error in upload", err.message);

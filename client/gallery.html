@@ -25,11 +25,12 @@
             Gallery
         </h1>
 
-        <form enctype="multipart/form-data" action="/upload" method="post">
+        <form enctype="multipart/form-data" action="/upload" method="post" >
             <input type="file" name="file">
+            <input type="text" name="user_id" id="user_id" hidden>
             <button
                 class="leading-none bg-[#333] text-[#fff] p-auto border-none rounded-[0.3125rem] cursor-pointer transition-all duration-[300ms] ease-in hover:bg-[#333]"
-                onclick="reloadWindow()">
+                onclick="upload()">
                 Upload
             </button>
         </form>
@@ -43,8 +44,10 @@
 </body>
 
 <script>
-    function reloadWindow(){
-        window.location.href = "gallery.html"
+    function upload(){
+        const user_id = localStorage.getItem("user_id");
+        const element = document.getElementById("user_id");
+        element.setAttribute("value", user_id);
     }
 </script>
 
