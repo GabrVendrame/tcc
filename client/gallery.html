@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/css/output.css">
     <link rel="icon" href="assets/images/icon.png">
     <link rel="shortcut icon" href="assets/images/icon.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
 </head>
 
 <body class="font-optimus bg-[#f4f4f4] text-center m-auto">
@@ -25,30 +26,40 @@
             Gallery
         </h1>
 
-        <form enctype="multipart/form-data" action="/upload" method="post" >
+        <form enctype="multipart/form-data" action="/upload" method="post">
             <input type="file" name="file">
             <input type="text" name="user_id" id="user_id" hidden>
             <button
                 class="leading-none bg-[#333] text-[#fff] p-auto border-none rounded-[0.3125rem] cursor-pointer transition-all duration-[300ms] ease-in hover:bg-[#333]"
-                onclick="upload()">
+                onclick="window.location.href='gallery.html'">
                 Upload
             </button>
         </form>
 
 
-        <div class="flex flex-wrap justify-center">
-
+        <div class="flex flex-wrap justify-center" id="image-container" onchange="display()">
+            
         </div>
     </div>
 
 </body>
 
 <script>
-    function upload(){
-        const user_id = localStorage.getItem("user_id");
-        const element = document.getElementById("user_id");
-        element.setAttribute("value", user_id);
+    const user_id = localStorage.getItem("user_id");
+    const element = document.getElementById("user_id");
+    element.setAttribute("value", user_id);
+    
+    function display(){
+        axios.get(`http://localhost:3000/files/${user_id}`).then((res) => {
+            const imgContainer = document.getElementById("image-container");
+            const image = document.createElement("img");
+            image.width = 500;
+            image.height = 500;
+            image.src = res.data;
+            imgContainer.appendChild(image);
+        });
     }
+    display();
 </script>
 
 </html>

@@ -12,9 +12,9 @@ const insertFile = async (name, buffer, user_id, mimetype, size) => {
     }
 }
 
-const getFiles = (id) => {
+const getFiles = (user_id) => {
     return new Promise((resolve, reject) => {
-        const query = `SELECT * FROM images WHERE id = "${id}"`;
+        const query = `SELECT * FROM images WHERE user_id = "${user_id}"`;
         db.get(query, (err, row) => {
             if (err) {
                 console.error(err);
