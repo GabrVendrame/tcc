@@ -28,6 +28,7 @@ router.post("/register", async function (req, res, next) {
 
 router.post("/upload", multerUpload.single("file"), async function (req, res, next) {
     try {
+        console.log(req.body.user_id);
         const { originalname, buffer, mimetype, size } = req.file;
         const newFile = {
             name: originalname,
@@ -41,7 +42,7 @@ router.post("/upload", multerUpload.single("file"), async function (req, res, ne
             newFile.name, newFile.file, newFile.user_id, newFile.mimetype, newFile.size
         );
 
-        res.status(status).json(body);
+        res.status(status).redirect("/gallery.html");
     } catch (err) {
         console.error("Error in upload", err);
         next(err);
@@ -54,17 +55,20 @@ router.get("/files/:id", async function (req, res, next) {
         const result = await files.getFiles(user_id);
         if (result) {
             const { status, body } = result;
-
-            // Convertendo buffer para imagem
-            const prefix = "data:" + body.mimetype + ";base64,";
-            const buffertobase64 = new Buffer.from(body.file).toString("base64");
-            const image = prefix + buffertobase64;
             
-            // Configurar cabeçalhos da resposta
-            res.setHeader("Content-Type", body.mimetype);
+            res.setHeader("Content-Type", "application/json");
             
-            // Enviar o conteúdo do arquivo como resposta
-            res.send(image);
+            const imgArray = body.map((img) => {
+                const prefix = "data:" + img.mimetype + ";base64,";
+                const buffer = new Buffer.from(img.file).toString("base64");
+                const image = prefix + buffer;
+                return {
+                    id: img.id,
+                    file: image,
+                };
+            
+            });
+            res.send(imgArray);
 
             return;
         }

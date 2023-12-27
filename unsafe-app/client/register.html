@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="assets/css/output.css" />
     <link rel="icon" href="assets/images/icon.png" />
     <link rel="shortcut icon" href="assets/images/icon.png" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
 </head>
 
 <body class="font-optimus bg-[#f4f4f4] text-center m-auto">
@@ -62,16 +61,19 @@
         const username = document.getElementById("newUsername").value;
         const password = document.getElementById("newPassword").value;
 
-        axios
-            .post("http://localhost:3000/register", {
-                username: username,
-                password: password,
-            })
-            .then((res) => {
-                console.log(res);
-                alert("Successfully registered! You can log in now");
-                window.location.href = "index.html";
-            });
+        const registerData = { username: username, password: password };
+
+        fetch("http://localhost:3000/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(registerData)
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+            alert("Successfully registered! You can log in now");
+            window.location.href = "index.html";    
+        }).catch(err => console.error(err));
     }
 </script>
 
