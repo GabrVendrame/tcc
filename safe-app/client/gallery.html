@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <link href="https://fonts.cdnfonts.com/css/optimus-princeps" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/output.css">
+    <link rel="icon" href="assets/images/icon.png">
+    <link rel="shortcut icon" href="assets/images/icon.png">
+</head>
+
+<body class="font-optimus bg-[#f4f4f4] text-center m-auto">
+    <div class="bg-black overflow-hidden shadow-[0px_0px_3px] shadow-white">
+        <a class="float-right block text-white text-center static top-auto px-[0.875rem] py-4 hover:bg-[#ddd] hover:text-black" href="index.html">
+            Logout
+        </a>
+    </div>
+
+    <div class="flex flex-col items-center gap-4 p-4">
+        <h1 class="text-3xl font-semibold flex flex-col items-center gap-4 p-4">
+            Gallery
+        </h1>
+
+        <form enctype="multipart/form-data" action="/upload" method="post">
+            <input type="file" name="file">
+            <input type="text" name="user_id" id="user_id" hidden>
+            <button
+                class="leading-none bg-[#333] text-[#fff] p-auto border-none rounded-[0.3125rem] cursor-pointer transition-all duration-[300ms] ease-in hover:bg-[#333]">
+                Upload
+            </button>
+        </form>
+
+        <div class="grid gap-5 grid-cols-3 w-full p-16" id="image-container">
+            
+        </div>
+    </div>
+
+</body>
+
+<script>
+    const user_id = localStorage.getItem("user_id");
+    const element = document.getElementById("user_id");
+    element.setAttribute("value", user_id);
+    
+    function display(){
+        fetch(`http://localhost:3000/files/${user_id}`, {
+            method: "GET"
+        })
+        .then(res => res.json())
+        .then(data => {
+            const imgContainer = document.getElementById("image-container");
+            data.forEach(img => {
+                const image = new Image();
+                image.width = 400;
+                image.height = 400;
+                image.src = img.file;
+                imgContainer.appendChild(image);
+            });
+        }).catch(err => console.error(err));
+    }
+    display();
+</script>
+
+</html>
