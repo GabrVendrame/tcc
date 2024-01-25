@@ -65,20 +65,19 @@
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
 
-        const loginData = {username: username, password: password};
+        const loginData = { username: username, password: password };
 
         fetch("http://localhost:3000/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(loginData)
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            localStorage.setItem("user_id", data.user_id);
-            window.location.href = "gallery.html";
-        }
-        ).catch(err => console.error(err));
+            .then(res => res.json())
+            .then(data => {
+                localStorage.setItem("user_id", data.user_id);
+                window.location.href = "gallery.html";
+            }
+            ).catch(err => console.error(err));
     }
 </script>
 

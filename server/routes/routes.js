@@ -28,7 +28,6 @@ router.post("/register", async function (req, res, next) {
 
 router.post("/upload", multerUpload.single("file"), async function (req, res, next) {
     try {
-        console.log(req.body.user_id);
         const { originalname, buffer, mimetype, size } = req.file;
         const newFile = {
             name: originalname,
@@ -55,9 +54,9 @@ router.get("/files/:id", async function (req, res, next) {
         const result = await files.getFiles(user_id);
         if (result) {
             const { status, body } = result;
-            
+
             res.setHeader("Content-Type", "application/json");
-            
+
             const imgArray = body.map((img) => {
                 const prefix = "data:" + img.mimetype + ";base64,";
                 const buffer = new Buffer.from(img.file).toString("base64");
@@ -66,7 +65,7 @@ router.get("/files/:id", async function (req, res, next) {
                     id: img.id,
                     file: image,
                 };
-            
+
             });
             res.send(imgArray);
 
