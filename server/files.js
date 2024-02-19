@@ -16,7 +16,7 @@ const insertFile = async (name, buffer, user_id, mimetype, size) => {
 const getFiles = (user_id) => {
   return new Promise((resolve, reject) => {
     const query = `SELECT id, file, mimetype FROM images WHERE user_id = "${user_id}"`;
-    db.all(query, (row) => {
+    db.all(query, (err, row) => {
       if (row) {
         resolve({ status: 200, body: row });
       } else {

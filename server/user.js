@@ -5,10 +5,10 @@ function login({ username, password }) {
   return new Promise((resolve, reject) => {
     const query = `SELECT * FROM users
         WHERE username = "${username}" and password = "${password}"`;
-    db.get(query, (row) => {
+    db.get(query, (err, row) => {
       if (row) {
         resolve({ status: 200, body: row.id });
-      } else if (row === undefined) {
+      } else if (!row) {
         reject({ status: 404, body: "Missing username or password" });
       } else {
         reject({ status: 400, body: "Username or password wrong" });
@@ -20,8 +20,12 @@ function login({ username, password }) {
 function register({ username, password }) {
   return new Promise((resolve, reject) => {
     const query = `SELECT username FROM users WHERE username = "${username}"`;
-    db.get(query, (row) => {
-      if (row === undefined) {
+    db.get(query, (err, row) => {
+      if (err) {
+        console.error(err);
+        reject({ status: 500, body: "Internal server error" });
+      }
+      if (!row) {
         const insert = `INSERT INTO users (username, password)
                 VALUES ("${username}", "${password}")`;
         db.run(insert);
