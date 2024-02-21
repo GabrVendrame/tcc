@@ -2,10 +2,10 @@
 
 Repository for final paper in Computer Science major
 
-## [Unsafe app](unsafe-app/)
+### [Unsafe app](unsafe-app/)
 
 Folder containing the unsafe app
 
-## [Safe app](safe-app/)
+### [Safe app](safe-app/)
 
 Folder containing the safe app
